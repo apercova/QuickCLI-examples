@@ -12,7 +12,7 @@ import io.apercova.quickcli.CLIDatatypeConverter;
 import io.apercova.quickcli.Command;
 import io.apercova.quickcli.CommandFactory;
 import io.apercova.quickcli.ExecutionException;
-import io.apercova.quickcli.examples.converter.SimpleCharsetConverter;
+import io.apercova.quickcli.examples.converter.CustomCharsetConverter;
 
 /**
  * Example of command value binding.
@@ -47,7 +47,7 @@ public class BindExamples extends Command<Void> {
 	private BigDecimal bdec;
 	
 	@CLIArgument(name="--cs",aliases={"--charset"}, required=false, value="utf-8")
-	@CLIDatatypeConverter(SimpleCharsetConverter.class)
+	@CLIDatatypeConverter(CustomCharsetConverter.class)
 	private Charset cs;
 	
 	@CLIArgument(name="--help", usage="List available options" )
