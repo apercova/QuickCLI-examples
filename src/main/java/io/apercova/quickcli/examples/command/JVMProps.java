@@ -1,9 +1,11 @@
-package net.apercova.quickcli.examples.command;
+package io.apercova.quickcli.examples.command;
 
-import net.apercova.quickcli.CLIArgument;
-import net.apercova.quickcli.CLICommand;
-import net.apercova.quickcli.Command;
-import net.apercova.quickcli.ExecutionException;
+import io.apercova.quickcli.CLIArgument;
+import io.apercova.quickcli.CLIArgumentException;
+import io.apercova.quickcli.CLICommand;
+import io.apercova.quickcli.Command;
+import io.apercova.quickcli.CommandFactory;
+import io.apercova.quickcli.ExecutionException;
 
 /**
  * Example of action command listing all JVM properties.
@@ -32,5 +34,17 @@ public class JVMProps extends Command<Void> {
 		}
 		writer.println("-----End JVM Properties-----");
 		return null;
+	}
+	
+	public static void main(String[] args) throws CLIArgumentException, ExecutionException {
+		
+		Command<Void> command = CommandFactory.createCommand(args, JVMProps.class);
+		
+		System.out.println(command);
+		System.out.println("Locale: " + command.getLocale());
+		System.out.println();
+		System.out.println("---Begin execution");
+		command.execute();
+		System.out.print("---Successfully executed");
 	}
 }

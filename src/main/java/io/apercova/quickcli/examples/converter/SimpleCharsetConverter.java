@@ -1,9 +1,9 @@
-package net.apercova.quickcli.examples.converter;
+package io.apercova.quickcli.examples.converter;
 
 import java.nio.charset.Charset;
 
-import net.apercova.quickcli.DatatypeConverter;
-import net.apercova.quickcli.DatatypeConverterException;
+import io.apercova.quickcli.DatatypeConverter;
+import io.apercova.quickcli.DatatypeConverterException;
 
 public class SimpleCharsetConverter implements DatatypeConverter<Charset> {
 

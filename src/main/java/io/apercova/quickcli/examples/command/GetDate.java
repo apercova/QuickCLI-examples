@@ -1,15 +1,15 @@
-package net.apercova.quickcli.examples.command;
+package io.apercova.quickcli.examples.command;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import net.apercova.quickcli.CLIArgument;
-import net.apercova.quickcli.CLICommand;
-import net.apercova.quickcli.CLIDatatypeConverter;
-import net.apercova.quickcli.Command;
-import net.apercova.quickcli.ExecutionException;
-import net.apercova.quickcli.examples.converter.SimpleLocaleConverter;
+import io.apercova.quickcli.CLIArgument;
+import io.apercova.quickcli.CLIArgumentException;
+import io.apercova.quickcli.CLICommand;
+import io.apercova.quickcli.Command;
+import io.apercova.quickcli.CommandFactory;
+import io.apercova.quickcli.ExecutionException;
 
 /**
  * Example of task command that retrieves a formated Date.
@@ -20,10 +20,6 @@ import net.apercova.quickcli.examples.converter.SimpleLocaleConverter;
  */
 @CLICommand(value="currdate", description="Retrieves current date.")
 public class GetDate extends Command<String>{
-
-	@CLIArgument(name="-l")
-	@CLIDatatypeConverter(SimpleLocaleConverter.class)
-	private Locale locale;
 	
 	@CLIArgument(name="-f", value="yyyy-MM-dd'T'hh:mm:ss.SSS zZ")
 	private String format;
@@ -41,7 +37,20 @@ public class GetDate extends Command<String>{
 	}
 	
 	public String execute() throws ExecutionException {
-		SimpleDateFormat sdf = new SimpleDateFormat(format, locale);		
+		SimpleDateFormat sdf = new SimpleDateFormat(format, locale);	
 		return sdf.format(Calendar.getInstance().getTime());
+	}
+	
+	public static void main(String[] args) throws CLIArgumentException, ExecutionException {
+		
+		args = new String[]{"-f","EEEE, dd MMM yyyy HH:mm:ss z"};
+		Command<String> command = CommandFactory.createCommand(args, GetDate.class, Locale.FRENCH);
+		
+		System.out.println(command);
+		System.out.println("Locale: " + command.getLocale());
+		System.out.println();
+		System.out.println("---Begin execution");
+		System.out.println(command.execute());
+		System.out.print("---Successfully executed");
 	}
 }

@@ -1,12 +1,18 @@
-package net.apercova.quickcli.examples.command;
+package io.apercova.quickcli.examples.command;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
+import java.util.Locale;
 
-import net.apercova.quickcli.CLIArgument;
-import net.apercova.quickcli.CLICommand;
-import net.apercova.quickcli.Command;
-import net.apercova.quickcli.ExecutionException;
+import io.apercova.quickcli.CLIArgument;
+import io.apercova.quickcli.CLIArgumentException;
+import io.apercova.quickcli.CLICommand;
+import io.apercova.quickcli.CLIDatatypeConverter;
+import io.apercova.quickcli.Command;
+import io.apercova.quickcli.CommandFactory;
+import io.apercova.quickcli.ExecutionException;
+import io.apercova.quickcli.examples.converter.SimpleCharsetConverter;
 
 /**
  * Example of command value binding.
@@ -40,7 +46,11 @@ public class BindExamples extends Command<Void> {
 	@CLIArgument(name="--bdec",aliases={"--big-decimal"}, required=true)
 	private BigDecimal bdec;
 	
-	@CLIArgument(name="--help", usage="List available options" )	
+	@CLIArgument(name="--cs",aliases={"--charset"}, required=false, value="utf-8")
+	@CLIDatatypeConverter(SimpleCharsetConverter.class)
+	private Charset cs;
+	
+	@CLIArgument(name="--help", usage="List available options" )
 	private Boolean showHelp;
 
 	public String getTexto() {
@@ -122,6 +132,15 @@ public class BindExamples extends Command<Void> {
 	public void setBdec(BigDecimal bdec) {
 		this.bdec = bdec;
 	}
+	
+	@Override
+	public Locale getLocale() {
+		return locale;
+	}
+	
+	public Charset getCharset() {
+		return cs;
+	}
 
 	@Override
 	public String toString() {
@@ -131,8 +150,44 @@ public class BindExamples extends Command<Void> {
 	}
 
 	public Void execute() throws ExecutionException {
-		System.out.print("Executed");
+		System.out.println(getBits());
+		System.out.println(getCorto());
+		System.out.println(getEntero());
+		System.out.println(getLargo());
+		System.out.println(getFlotante());
+		System.out.println(getDoble());
+		System.out.println(getBint());
+		System.out.println(getBdec());
+		System.out.println(getCharset());
 		return null;
 	}
 	
+	public static void main(String[] args) throws CLIArgumentException, ExecutionException {
+		
+		args = new String[] {
+				"--string","sha1",
+				"--boolean",
+				"--byte",String.valueOf(Byte.MAX_VALUE),
+				"--short",String.valueOf(Short.MAX_VALUE),
+				"--int",String.valueOf(Integer.MAX_VALUE),
+				"--long",String.valueOf(Long.MAX_VALUE),
+				"--float",String.valueOf(Float.MAX_VALUE),
+				"--double",String.valueOf(Double.MAX_VALUE),
+				"--big-integer",String.valueOf(Long.MAX_VALUE+ Long.MAX_VALUE),
+				"--big-decimal",String.valueOf(Long.MAX_VALUE*1.23),
+				"--cs","iso-8859-1",
+				"--help"
+				};
+		
+		Command<Void> command = CommandFactory.createCommand(args, BindExamples.class);	
+				
+		System.out.println(command);
+		System.out.println("Locale: " + command.getLocale());
+		System.out.println();
+		System.out.println("---Begin execution");
+		command.execute();
+		System.out.print("---Successfully executed");
+	}
+	
 }
+	
