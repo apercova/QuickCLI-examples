@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.apercova</groupId>
   <artifactId>quickcli-examples</artifactId>
-  <version>1.0.1808</version>
+  <version>1.0.1904</version>
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
@@ -20,7 +20,7 @@
   	<dependency>
   		<groupId>io.apercova</groupId>
   		<artifactId>quickcli</artifactId>
-  		<version>1.0.1808</version>
+  		<version>1.0.1904</version>
   	</dependency>
   </dependencies>
   
@@ -30,7 +30,7 @@
   		<plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.7.0</version>
+            <version>3.6.0</version>
             <configuration>
                 <encoding>UTF-8</encoding>
                 <source>1.6</source>
