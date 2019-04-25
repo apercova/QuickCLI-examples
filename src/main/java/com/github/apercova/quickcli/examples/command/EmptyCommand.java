@@ -1,11 +1,11 @@
-package io.apercova.quickcli.examples.command;
+package com.github.apercova.quickcli.examples.command;
 
-import io.apercova.quickcli.annotation.CLIArgument;
-import io.apercova.quickcli.exception.CLIArgumentException;
-import io.apercova.quickcli.annotation.CLICommand;
-import io.apercova.quickcli.Command;
-import io.apercova.quickcli.CommandFactory;
-import io.apercova.quickcli.exception.ExecutionException;
+import com.github.apercova.quickcli.annotation.CLIArgument;
+import com.github.apercova.quickcli.exception.CLIArgumentException;
+import com.github.apercova.quickcli.annotation.CLICommand;
+import com.github.apercova.quickcli.Command;
+import com.github.apercova.quickcli.CommandFactory;
+import com.github.apercova.quickcli.exception.ExecutionException;
 
 @CLICommand(value = "HelloCommand")
 public class EmptyCommand extends Command<Void> {
@@ -25,7 +25,7 @@ public class EmptyCommand extends Command<Void> {
     public static void main(String[] args) throws CLIArgumentException, ExecutionException {
 
         args = new String[]{"--h"};
-        Command<Void> command = CommandFactory.create(args, EmptyCommand.class);
+        EmptyCommand command = CommandFactory.create(args, EmptyCommand.class);
 
         System.out.println(command);
         System.out.println("Locale: " + command.getLocale());

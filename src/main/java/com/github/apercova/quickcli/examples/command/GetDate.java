@@ -1,13 +1,13 @@
-package io.apercova.quickcli.examples.command;
+package com.github.apercova.quickcli.examples.command;
 
 import java.util.Locale;
 
-import io.apercova.quickcli.Command;
-import io.apercova.quickcli.CommandFactory;
-import io.apercova.quickcli.annotation.CLIArgument;
-import io.apercova.quickcli.annotation.CLICommand;
-import io.apercova.quickcli.exception.CLIArgumentException;
-import io.apercova.quickcli.exception.ExecutionException;
+import com.github.apercova.quickcli.Command;
+import com.github.apercova.quickcli.CommandFactory;
+import com.github.apercova.quickcli.annotation.CLIArgument;
+import com.github.apercova.quickcli.annotation.CLICommand;
+import com.github.apercova.quickcli.exception.CLIArgumentException;
+import com.github.apercova.quickcli.exception.ExecutionException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -47,7 +47,7 @@ public class GetDate extends Command<String> {
     public static void main(String[] args) throws CLIArgumentException, ExecutionException {
 
         args = new String[]{"-f", "EEEE, dd MMM yyyy HH:mm:ss z"};
-        Command<String> command = CommandFactory.create(args, GetDate.class, Locale.FRENCH);
+        GetDate command = CommandFactory.create(args, GetDate.class, Locale.FRENCH);
 
         System.out.println(command);
         System.out.println("Locale: " + command.getLocale());

@@ -18,7 +18,7 @@
   	</dependency>
   	
   	<dependency>
-  		<groupId>io.apercova</groupId>
+  		<groupId>com.github.apercova</groupId>
   		<artifactId>quickcli</artifactId>
   		<version>1.0.1904</version>
   	</dependency>

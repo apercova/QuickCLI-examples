@@ -1,11 +1,11 @@
-package io.apercova.quickcli.examples.command;
+package com.github.apercova.quickcli.examples.command;
 
-import io.apercova.quickcli.annotation.CLIArgument;
-import io.apercova.quickcli.Command;
-import io.apercova.quickcli.CommandFactory;
-import io.apercova.quickcli.annotation.CLICommand;
-import io.apercova.quickcli.exception.CLIArgumentException;
-import io.apercova.quickcli.exception.ExecutionException;
+import com.github.apercova.quickcli.annotation.CLIArgument;
+import com.github.apercova.quickcli.Command;
+import com.github.apercova.quickcli.CommandFactory;
+import com.github.apercova.quickcli.annotation.CLICommand;
+import com.github.apercova.quickcli.exception.CLIArgumentException;
+import com.github.apercova.quickcli.exception.ExecutionException;
 
 /**
  * Example of action command listing all JVM properties.
@@ -25,14 +25,14 @@ public class JVMProps extends Command<Void> {
     public Void execute() throws ExecutionException {
         writer.println("-----Begin JVM Properties-----");
         if (propName != null && propName.length() != 0) {
-            String name = String.valueOf(propName);
-            name = name.substring(0, (name.length() >= 35 ? 35 : name.length()));
-            writer.printf(locale, "%-35s|%s%n", name, System.getProperties().getProperty(name));
+            String propName_ = String.valueOf(propName);
+            propName_ = propName_.substring(0, (propName_.length() >= 35 ? 35 : propName_.length()));
+            writer.printf(locale, "%-35s|%s%n", propName_, System.getProperties().getProperty(propName_));
         } else {
-            for (Object propName : System.getProperties().keySet()) {
-                String name = String.valueOf(propName);
-                name = name.substring(0, (name.length() >= 35 ? 35 : name.length()));
-                writer.printf(locale, "%-35s|%s%n", name, System.getProperties().getProperty(name));
+            for (Object sysProp : System.getProperties().keySet()) {
+                String sysProp_ = String.valueOf(sysProp);
+                sysProp_ = sysProp_.substring(0, (sysProp_.length() >= 35 ? 35 : sysProp_.length()));
+                writer.printf(locale, "%-35s|%s%n", sysProp, System.getProperties().getProperty(sysProp_));
             }
         }
         writer.println("-----End JVM Properties-----");
@@ -41,7 +41,7 @@ public class JVMProps extends Command<Void> {
 
     public static void main(String[] args) throws CLIArgumentException, ExecutionException {
 
-        Command<Void> command = CommandFactory.create(args, JVMProps.class);
+        JVMProps command = CommandFactory.create(args, JVMProps.class);
 
         System.out.println(command);
         System.out.println("Locale: " + command.getLocale());

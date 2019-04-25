@@ -1,4 +1,4 @@
-package io.apercova.quickcli.examples.command;
+package com.github.apercova.quickcli.examples.command;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -15,14 +15,15 @@ import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
 
-import io.apercova.quickcli.annotation.CLIArgument;
-import io.apercova.quickcli.annotation.CLICommand;
-import io.apercova.quickcli.annotation.CLIDatatypeConverter;
-import io.apercova.quickcli.Command;
-import io.apercova.quickcli.CommandFactory;
-import io.apercova.quickcli.examples.converter.CustomCharsetConverter;
-import io.apercova.quickcli.examples.converter.CustomMessageDigestConverter;
-import io.apercova.quickcli.exception.ExecutionException;
+import com.github.apercova.quickcli.annotation.CLIArgument;
+import com.github.apercova.quickcli.annotation.CLICommand;
+import com.github.apercova.quickcli.annotation.CLIDatatypeConverter;
+import com.github.apercova.quickcli.Command;
+import com.github.apercova.quickcli.CommandFactory;
+import com.github.apercova.quickcli.examples.converter.CustomCharsetConverter;
+import com.github.apercova.quickcli.examples.converter.CustomMessageDigestConverter;
+import com.github.apercova.quickcli.exception.CLIArgumentException;
+import com.github.apercova.quickcli.exception.ExecutionException;
 
 /**
  * {@link Command} implementation for jchecksum command.
@@ -166,11 +167,16 @@ public final class CheckSum extends Command<Void> {
      */
     public static void main(String[] args) {
 
-        Command<Void> command = null;
+        CheckSum command = null;
         try {
             command = CommandFactory.create(args, CheckSum.class);
             command.execute();
-        } catch (Exception e) {
+        } catch (CLIArgumentException e) {
+            System.out.printf("%s%n", e.getMessage());
+            if (command != null) {
+                command.printUsage();
+            }
+        } catch (ExecutionException e) {
             System.out.printf("%s%n", e.getMessage());
             if (command != null) {
                 command.printUsage();
